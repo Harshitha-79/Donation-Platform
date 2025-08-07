@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donation Platform</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <h1>Available Donations</h1>
+    <form method="get">
+        <label>Search:</label>
+        <input type="text" name="q" value="{{ query }}">
+
+        <label>Category:</label>
+        <select name="category">
+            <option value="">All</option>
+            <option value="clothes">Clothes</option>
+            <option value="electronics">Electronics</option>
+            <option value="books">Books</option>
+            <option value="furniture">Furniture</option>
+            <option value="other">Other</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul>
+        {% for d in donations %}
+            <li>
+                <strong>{{ d.title }}</strong> - {{ d.category }}
+                {% if d.is_claimed %}
+                    <span style="color: green;">(Claimed)</span>
+                {% else %}
+                    <a href="{% url 'claim' d.id %}">Mark as Claimed</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No donations found.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_donation' %}">+ Add New Donation</a>
+</div>
+</body>
+</html>
