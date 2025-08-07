@@ -1,6 +1,14 @@
 services:
-- type: web
-  name: donation-app
-  env: python
-  buildCommand: pip install -r requirements.txt
-  startCommand: gunicorn giveaway.wsgi
+  - type: web
+    name: donation-platform
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn giveaway_project_ready.wsgi"
+    autoDeploy: true
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: giveaway_project_ready.settings
+      - key: SECRET_KEY
+        fromDatabase: true  # Use Render's secrets UI instead
+      - key: DEBUG
+        value: False
