@@ -1,1 +1,1 @@
-web: gunicorn giveaway_project_ready.wsgi
+gunicorn giveaway.wsgi:application
