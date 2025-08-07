@@ -58,10 +58,17 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+import os
 
 STATIC_URL = '/static/'
-import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Optional: for development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static"),]
-DEBUG =True
+DEBUG =False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
